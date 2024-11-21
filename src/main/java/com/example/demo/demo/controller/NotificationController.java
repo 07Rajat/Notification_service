@@ -1,5 +1,7 @@
 package com.example.demo.demo.controller;
 
+import com.example.demo.demo.AppService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,16 +15,13 @@ import java.util.Map;
 @RequestMapping("/api")
 public class NotificationController {
 
+    @Autowired
+    private AppService apiService;
+
     @GetMapping("/notification-service")
     public Map<String, Object> getNotificationService() {
-        // Sample product data
-        List<Map<String, Object>> products = new ArrayList<>();
 
-        // Adding sample products
-        products.add(createProduct("1", 1));
-        products.add(createProduct("3", 15));
-        products.add(createProduct("34", 5));
-        products.add(createProduct("344", 0));
+        List<Map<String, Object>> products = apiService.getDataFromApi();
 
         // Prepare response
         Map<String, Object> response = new HashMap<>();
