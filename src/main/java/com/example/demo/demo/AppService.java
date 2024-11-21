@@ -19,23 +19,15 @@ public class AppService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // Method to fetch data using RestTemplate (Synchronous)
-//    public String getDataFromApi() {
-//        String apiUrl = "http://localhost:8080/inventory";  // Example API URL
-//        return restTemplate.getForObject(apiUrl, String.class);
-//    }
-
     public List<Map<String, Object>> getDataFromApi() {
-        // Call the API using RestTemplate to get the raw JSON response as a String
         String apiUrl = "http://localhost:8080/inventory";
         String jsonResponse = restTemplate.getForObject(apiUrl, String.class);
 
-        try {
-            // Use Jackson's ObjectMapper to convert the JSON string to List<Map<String, Object>>
+        try { 
             return objectMapper.readValue(jsonResponse, new TypeReference<List<Map<String, Object>>>() {});
         } catch (IOException e) {
             e.printStackTrace();
-            return null; // Or throw an exception as needed
+            return null;
         }
     }
 }
